@@ -2,7 +2,8 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ИЗМЕНЕНИЕ 1: Запрет масштабирования страницы -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Creative Studio | Fotograf și Videograf de Nuntă în Moldova & România</title>
     
     <!-- SEO -->
@@ -175,7 +176,6 @@
             <li><a href="#" class="active">Acasă</a></li>
             <li><a href="#despre">Despre</a></li>
             <li><a href="#galerie">Galerie</a></li>
-            <!-- Пункт "Video" удалён -->
             <li><a href="#servicii">Servicii</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -202,11 +202,12 @@
         <div class="slider-nav"><div class="slider-dot active"></div><div class="slider-dot"></div><div class="slider-dot"></div></div>
     </div>
 
-    <!-- DESPRE -->
+    <!-- DESPRE (ИЗМЕНЕНИЕ 2: Адаптивная сетка) -->
     <div id="despre" class="section">
         <h2 class="section-title reveal">Despre noi</h2>
         <p class="section-sub reveal">De peste 5 ani creăm amintiri de neuitat pentru cupluri din Moldova și România.</p>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+        <!-- Заменено на repeat(auto-fit, minmax(250px, 1fr)) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
             <div class="service-card reveal"><h3>Experiență</h3><p>Peste 300 de nunți filmate</p></div>
             <div class="service-card reveal"><h3>Stil unic</h3><p>Luminos, natural, emoționant</p></div>
             <div class="service-card reveal"><h3>Termene rapide</h3><p>Fotografii gata în 2 luni</p></div>
