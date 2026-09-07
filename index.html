@@ -2,7 +2,6 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <!-- ИЗМЕНЕНИЕ 1: Запрет масштабирования страницы -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Creative Studio | Fotograf și Videograf de Nuntă în Moldova & România</title>
     
@@ -42,6 +41,11 @@
     }
     </script>
 
+    <!-- GSAP и Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
@@ -50,14 +54,12 @@
         :root { --blue: #4A90E2; --black: #1E1E1E; --gray: #555; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        /* Глобальные настройки для предотвращения горизонтальной прокрутки */
         html, body { overflow-x: hidden; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: auto; } /* Lenis управляет плавностью */
 
         body { font-family: 'Inter', sans-serif; background: #fff; color: var(--black); line-height: 1.6; }
         h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
 
-        /* Navbar */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%;
             background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
@@ -72,8 +74,7 @@
         .nav-links a:hover, .nav-links a.active { color: var(--blue); }
         .burger { display: none; }
 
-        /* Hero */
-        .hero-slider { height: 100vh; height: 100svh; position: relative; overflow: hidden; }
+        .hero-slider { height: 100vh; height: 100svh; position: relative; overflow: hidden; will-change: transform; }
         .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; display: flex; align-items: center; justify-content: center; text-align: center; }
         .slide.active { opacity: 1; }
         .slide-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
@@ -87,18 +88,15 @@
         .slider-dot { width: 12px; height: 12px; background: rgba(255,255,255,0.7); border-radius: 50%; cursor: pointer; }
         .slider-dot.active { background: var(--blue); }
 
-        /* Sections */
         .section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; text-align: center; }
         .section-title { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1rem; }
         .section-sub { color: var(--gray); margin-bottom: 3rem; font-weight: 300; }
 
-        /* Gallery */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
         .gallery-item { border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); aspect-ratio: 4/3; cursor: pointer; }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
         .gallery-item:hover img { transform: scale(1.05); }
 
-        /* Services */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
         .service-card { background: #f9f9f9; border-radius: 16px; padding: 2.5rem; transition: transform 0.3s; }
         .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
@@ -108,7 +106,6 @@
         .service-card li { margin-bottom: 0.5rem; position: relative; padding-left: 1.5rem; }
         .service-card li::before { content: '✓'; color: var(--blue); position: absolute; left: 0; }
 
-        /* Contact */
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; text-align: left; margin-top: 3rem; }
         .contact-info { background: #f9f9f9; border-radius: 16px; padding: 2rem; }
         .contact-form { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
@@ -116,15 +113,12 @@
         .form-group input, .form-group textarea { width: 100%; padding: 0.8rem 1rem; border: 1px solid #ddd; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 1rem; }
         .btn-submit { width: 100%; padding: 1rem; background: var(--blue); color: white; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; }
 
-        /* Footer */
         footer { background: #f9f9f9; padding: 2rem 5%; text-align: center; margin-top: 5rem; color: var(--gray); }
         footer a { color: var(--blue); margin: 0 0.5rem; text-decoration: none; }
 
-        /* Анимации */
-        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
+        /* GSAP анимации будут работать с классами .reveal */
+        .reveal { opacity: 0; transform: translateY(30px); }
 
-        /* Lightbox */
         .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; }
         .lightbox.active { display: flex; }
         .lightbox img { max-width: 95%; max-height: 95%; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 1; }
@@ -144,17 +138,11 @@
         ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #357ABD; }
 
-        /* Мобильная адаптация */
         @media (max-width: 768px) {
-            .nav-links {
-                position: fixed; top: 0; right: -100%; height: 100vh; width: 80%;
-                background: white; flex-direction: column; justify-content: center; align-items: center;
-                gap: 2.5rem; transition: right 0.4s ease; box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            }
+            .nav-links { position: fixed; top: 0; right: -100%; height: 100vh; width: 80%; background: white; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; transition: right 0.4s ease; box-shadow: -5px 0 15px rgba(0,0,0,0.1); }
             .nav-links.active { right: 0; }
             .burger { display: flex; cursor: pointer; flex-direction: column; gap: 5px; }
             .burger span { width: 25px; height: 2px; background: var(--black); }
-            
             .section { padding: 4rem 1.5rem; }
             .gallery-grid, .services-grid, .contact-grid { grid-template-columns: 1fr; }
             .logo img { height: 35px; }
@@ -202,12 +190,11 @@
         <div class="slider-nav"><div class="slider-dot active"></div><div class="slider-dot"></div><div class="slider-dot"></div></div>
     </div>
 
-    <!-- DESPRE (ИЗМЕНЕНИЕ 2: Адаптивная сетка) -->
+    <!-- DESPRE -->
     <div id="despre" class="section">
         <h2 class="section-title reveal">Despre noi</h2>
         <p class="section-sub reveal">De peste 5 ani creăm amintiri de neuitat pentru cupluri din Moldova și România.</p>
-        <!-- Заменено на repeat(auto-fit, minmax(250px, 1fr)) -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+        <div class="services-grid">
             <div class="service-card reveal"><h3>Experiență</h3><p>Peste 300 de nunți filmate</p></div>
             <div class="service-card reveal"><h3>Stil unic</h3><p>Luminos, natural, emoționant</p></div>
             <div class="service-card reveal"><h3>Termene rapide</h3><p>Fotografii gata în 2 luni</p></div>
@@ -230,10 +217,10 @@
     <!-- SERVICII -->
     <div id="servicii" class="section">
         <h2 class="section-title reveal">Servicii</h2>
-        <div class="services-grid reveal">
-            <div class="service-card"><h3>Essential</h3><div class="price">9 000 lei <span>/ 5 ore</span></div><ul><li>1 fotograf</li><li>150 fotografii</li><li>Videoclip scurt</li></ul><a href="#contact" class="btn-primary">Rezervă</a></div>
-            <div class="service-card" style="border: 2px solid var(--blue);"><h3>Signature</h3><div class="price">15 000 lei <span>/ 10 ore</span></div><ul><li>2 fotografi + videograf</li><li>500 fotografii + film</li><li>Album tipărit</li></ul><a href="#contact" class="btn-primary">Rezervă</a></div>
-            <div class="service-card"><h3>Luxury</h3><div class="price">25 000 lei <span>/ toată ziua</span></div><ul><li>3 fotografi + 2 videografi</li><li>1000+ fotografii + film</li><li>Design personalizat</li></ul><a href="#contact" class="btn-primary">Rezervă</a></div>
+        <div class="services-grid">
+            <div class="service-card reveal"><h3>Essential</h3><div class="price">9 000 lei <span>/ 5 ore</span></div><ul><li>1 fotograf</li><li>150 fotografii</li><li>Videoclip scurt</li></ul><a href="#contact" class="btn-primary">Rezervă</a></div>
+            <div class="service-card reveal" style="border: 2px solid var(--blue);"><h3>Signature</h3><div class="price">15 000 lei <span>/ 10 ore</span></div><ul><li>2 fotografi + videograf</li><li>500 fotografii + film</li><li>Album tipărit</li></ul><a href="#contact" class="btn-primary">Rezervă</a></div>
+            <div class="service-card reveal"><h3>Luxury</h3><div class="price">25 000 lei <span>/ toată ziua</span></div><ul><li>3 fotografi + 2 videografi</li><li>1000+ fotografii + film</li><li>Design personalizat</li></ul><a href="#contact" class="btn-primary">Rezervă</a></div>
         </div>
     </div>
 
@@ -273,7 +260,72 @@
     </div>
 
     <script>
-        // Slider
+        // Инициализация Lenis (плавный скролл)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+            touchMultiplier: 1.5
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Регистрируем GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Анимация появления секций
+        gsap.utils.toArray('.reveal').forEach((el) => {
+            gsap.fromTo(el, 
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        });
+
+        // Каскад для карточек внутри секций
+        gsap.utils.toArray('.services-grid .service-card, .gallery-grid .gallery-item').forEach((el, i) => {
+            gsap.fromTo(el,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    delay: i * 0.1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el.parentElement,
+                        start: 'top 80%',
+                    }
+                }
+            );
+        });
+
+        // Параллакс на фоне hero
+        gsap.to('.hero-slider', {
+            yPercent: 20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero-slider',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+
+        // Слайдер
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.slider-dot');
         let current = 0;
@@ -281,20 +333,16 @@
         setInterval(() => { current = (current + 1) % slides.length; showSlide(current); }, 5000);
         dots.forEach((dot, i) => dot.addEventListener('click', () => { current = i; showSlide(current); }));
 
-        // Mobile menu
+        // Мобильное меню
         const burger = document.getElementById('burger');
         const navLinks = document.getElementById('navLinks');
         burger.addEventListener('click', () => { burger.classList.toggle('active'); navLinks.classList.toggle('active'); });
         navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { burger.classList.remove('active'); navLinks.classList.remove('active'); }));
 
-        // Reveal animations
-        const observer = new IntersectionObserver((entries) => entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }), { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Form
+        // Форма
         document.getElementById('contactForm').addEventListener('submit', function(e) { e.preventDefault(); alert('Mulțumim! Cererea a fost trimisă.'); this.reset(); });
 
-        // Lightbox navigation
+        // Лайтбокс навигация
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = lightbox.querySelector('img');
         const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
@@ -322,7 +370,7 @@
             if (e.key === 'ArrowRight') nextImage();
         });
 
-        // Swipe for mobile
+        // Свайпы на телефоне
         let touchStartX = 0;
         lightbox.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
         lightbox.addEventListener('touchend', e => {
