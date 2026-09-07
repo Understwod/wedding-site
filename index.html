@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Studio | Fotograf și Videograf de Nuntă în Moldova & România</title>
+    
+    <!-- SEO -->
+    <meta name="description" content="Studio foto-video de nuntă în Chișinău și București. Fotografii și filme de nuntă de lux. Rezervă data nunții tale!">
+    <meta name="keywords" content="fotograf nuntă, videograf nuntă, foto video nuntă Moldova, foto video nuntă România, studio foto nuntă Chișinău">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph для соцсетей -->
+    <meta property="og:title" content="Creative Studio | Fotograf și Videograf de Nuntă">
+    <meta property="og:description" content="Fotografii și filme de nuntă de lux. Rezervă data nunții tale!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://creativestudio.md/">
+    <meta property="og:image" content="https://creativestudio.md/photo1.jpg">
+    <meta property="og:locale" content="ro_RO">
+
+    <!-- Favicon -->
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <!-- Schema.org LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Creative Studio",
+      "image": "https://creativestudio.md/logo.png",
+      "description": "Studio foto-video de nuntă în Moldova și România.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "str. Alexandru cel Bun 20",
+        "addressLocality": "Chișinău",
+        "addressCountry": "MD"
+      },
+      "telephone": "+37360000000",
+      "url": "https://creativestudio.md",
+      "priceRange": "9000 - 25000 MDL"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --blue: #4A90E2; --black: #1E1E1E; --gray: #555; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: var(--black); line-height: 1.6; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            border-bottom: 1px solid #eee; padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+        }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 45px; width: auto; }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); text-decoration: none; }
+        .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+        .burger { display: none; }
+
+        .hero-slider { height: 100vh; position: relative; overflow: hidden; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .slide.active { opacity: 1; }
+        .slide-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+        .slide-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5)); }
+        .slide-content { position: relative; z-index: 2; color: white; max-width: 800px; padding: 0 1.5rem; }
+        .slide-content h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 1rem; }
+        .slide-content p { font-size: 1.2rem; margin-bottom: 2rem; }
+        .btn-primary { padding: 1rem 2.5rem; background: var(--blue); color: white; border-radius: 50px; text-decoration: none; display: inline-block; transition: background 0.3s; }
+        .btn-primary:hover { background: #357ABD; }
+        .slider-nav { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; gap: 1rem; }
+        .slider-dot { width: 12px; height: 12px; background: rgba(255,255,255,0.7); border-radius: 50%; cursor: pointer; }
+        .slider-dot.active { background: var(--blue); }
+
+        .section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; text-align: center; }
+        .section-title { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1rem; }
+        .section-sub { color: var(--gray); margin-bottom: 3rem; font-weight: 300; }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+        .gallery-item { border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); aspect-ratio: 4/3; cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+        .service-card { background: #f9f9f9; border-radius: 16px; padding: 2.5rem; transition: transform 0.3s; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .price { font-size: 2rem; font-weight: 700; color: var(--blue); margin-bottom: 1.5rem; }
+        .price span { font-size: 0.9rem; font-weight: 400; color: var(--gray); }
+        .service-card ul { list-style: none; margin-bottom: 2rem; text-align: left; }
+        .service-card li { margin-bottom: 0.5rem; position: relative; padding-left: 1.5rem; }
+        .service-card li::before { content: '✓'; color: var(--blue); position: absolute; left: 0; }
+
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+        .video-item { aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .video-item iframe { width: 100%; height: 100%; border: none; }
+
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; text-align: left; margin-top: 3rem; }
+        .contact-info { background: #f9f9f9; border-radius: 16px; padding: 2rem; }
+        .contact-form { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.8rem 1rem; border: 1px solid #ddd; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 1rem; }
+        .btn-submit { width: 100%; padding: 1rem; background: var(--blue); color: white; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; }
+
+        footer { background: #f9f9f9; padding: 2rem 5%; text-align: center; margin-top: 5rem; color: var(--gray); }
+        footer a { color: var(--blue); margin: 0 0.5rem; text-decoration: none; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ЛАЙТБОКС (ОБНОВЛЕННЫЙ) */
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 1; }
+        
+        /* Кнопки навигации в лайтбоксе */
+        .lightbox-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: #fff;
+            font-size: 2.5rem;
+            padding: 1rem;
+            cursor: pointer;
+            z-index: 2;
+            border-radius: 50%;
+            transition: background 0.3s;
+            line-height: 1;
+        }
+        .lightbox-btn:hover { background: rgba(255,255,255,0.5); color: #000; }
+        .lightbox-btn.prev { left: 2rem; }
+        .lightbox-btn.next { right: 2rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; top: 0; right: -100%; height: 100vh; width: 70%; background: white; flex-direction: column; justify-content: center; align-items: center; transition: right 0.4s; }
+            .nav-links.active { right: 0; }
+            .burger { display: flex; cursor: pointer; flex-direction: column; gap: 5px; }
+            .burger span { width: 25px; height: 2px; background: var(--black); }
+            .gallery-grid, .services-grid, .video-grid, .contact-grid { grid-template-columns: 1fr; }
+            .logo img { height: 35px; }
+            .lightbox-btn.prev { left: 0.5rem; }
+            .lightbox-btn.next { right: 0.5rem; }
+            .lightbox-btn { font-size: 1.8rem; padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="logo.png" alt="Creative Studio Logo">
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" class="active">Acasă</a></li>
+            <li><a href="#despre">Despre</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#video">Video</a></li>
+            <li><a href="#servicii">Servicii</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="burger" id="burger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <div class="hero-slider">
+        <div class="slide active">
+            <div class="slide-bg" style="background-image: url('photo1.jpg');"></div>
+            <div class="slide-overlay"></div>
+            <div class="slide-content"><h1>Povestea voastră în fiecare cadru</h1><p>Fotografii și filme de nuntă care rămân pentru totdeauna</p><a href="#galerie" class="btn-primary">Vezi galeria</a></div>
+        </div>
+        <div class="slide">
+            <div class="slide-bg" style="background-image: url('photo2.jpg');"></div>
+            <div class="slide-overlay"></div>
+            <div class="slide-content"><h1>Momente unice, capturate cu eleganță</h1><p>Stilul nostru – aerisit, luminos, natural</p><a href="#servicii" class="btn-primary">Vezi serviciile</a></div>
+        </div>
+        <div class="slide">
+            <div class="slide-bg" style="background-image: url('photo3.jpg');"></div>
+            <div class="slide-overlay"></div>
+            <div class="slide-content"><h1>Emoții transformate în artă</h1><p>Rezervă data nunții tale acum</p><a href="#contact" class="btn-primary">Contactează-ne</a></div>
+        </div>
+        <div class="slider-nav"><div class="slider-dot active"></div><div class="slider-dot"></div><div class="slider-dot"></div></div>
+    </div>
+
+    <div id="despre" class="section">
+        <h2 class="section-title reveal">Despre noi</h2>
+        <p class="section-sub reveal">De peste 5 ani creăm amintiri de neuitat pentru cupluri din Moldova și România.</p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+            <div class="service-card reveal"><h3>Experiență</h3><p>Peste 300 de nunți filmate</p></div>
+            <div class="service-card reveal"><h3>Stil unic</h3><p>Luminos, natural, emoționant</p></div>
+            <div class="service-card reveal"><h3>Termene rapide</h3><p>Fotografii gata în 2 luni</p></div>
+        </div>
+    </div>
+
+    <div id="galerie" class="section">
+        <h2 class="section-title reveal">Galerie</h2>
+        <p class="section-sub reveal">Cele mai frumoase momente surprinse</p>
+        <div class="gallery-grid reveal">
+            <div class="gallery-item" data-full="photo1.jpg"><img src="photo1.jpg" alt="Nuntă 1" loading="lazy"></div>
+            <div class="gallery-item" data-full="photo2.jpg"><img src="photo2.jpg" alt="Nuntă 2" loading="lazy"></div>
+            <div class="gallery-item" data-full="photo3.jpg"><img src="photo3.jpg" alt="Nuntă 3" loading="lazy"></div>
+            <div class="gallery-item" data-full="photo4.jpg"><img src="photo4.jpg" alt="Nuntă 4" loading="lazy"></div>
+            <div class="gallery-item" data-full="photo5.jpg"><img src="photo5.jpg" alt="Nuntă 5" loading="lazy"></div>
+        </div>
+    </div>
+
+    <div id="video" class="section">
+        <h2 class="section-title reveal">Filme de nuntă</h2>
+        <div class="video-grid reveal">
+            <div class="video-item"><iframe src="https://www.youtube.com/embed/1La4QzGeaaQ" title="Film de nuntă" allowfullscreen></iframe></div>
+            <div class="video-item"><iframe src="https://www.youtube.com/embed/9bZkp7q19f0" title="Film de nuntă 2" allowfullscreen></iframe></div>
+        </div>
+    </div>
+
+    <div id="servicii" class="section">
+        <h2 class="section-title reveal">Servicii</h2>
+        <div class="services-grid reveal">
+            <div class="service-card"><h3>Essential</h3><div class="price">9 000 lei <span>/ 5 ore</span></div><ul><li>1 fotograf</li><li>150 fotografii</li><li>Videoclip scurt</li></ul><a href="#contact" class="btn-primary">Rezervă</a></div>
+            <div class="service-card" style="border: 2px solid var(--blue);"><h3>Signature</h3><div class="price">15 000 lei <span>/ 10 ore</span></div><ul><li>2 fotografi + videograf</li><li>500 fotografii + film</li><li>Album tipărit</li></ul><a href="#contact" class="btn-primary">Rezervă</a></div>
+            <div class="service-card"><h3>Luxury</h3><div class="price">25 000 lei <span>/ toată ziua</span></div><ul><li>3 fotografi + 2 videografi</li><li>1000+ fotografii + film</li><li>Design personalizat</li></ul><a href="#contact" class="btn-primary">Rezervă</a></div>
+        </div>
+    </div>
+
+    <div id="contact" class="section">
+        <h2 class="section-title reveal">Contactează-ne</h2>
+        <div class="contact-grid reveal">
+            <div class="contact-info">
+                <h3>Date de contact</h3>
+                <p>Telefon: +373 60 000 000 / +40 700 000 000</p>
+                <p>Email: hello@creativestudio.md</p>
+                <p>Adresă: Chișinău, str. Alexandru cel Bun 20</p>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group"><input type="text" placeholder="Numele tău" required></div>
+                    <div class="form-group"><input type="tel" placeholder="Telefon" required></div>
+                    <div class="form-group"><input type="text" placeholder="ZZ.LL.AAAA" maxlength="10"></div>
+                    <div class="form-group"><textarea rows="4" placeholder="Povestea nunții tale"></textarea></div>
+                    <button type="submit" class="btn-submit">Trimite cererea</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Creative Studio. Toate drepturile rezervate.</p>
+        <p><a href="#" rel="noopener">Instagram</a> | <a href="#" rel="noopener">Facebook</a> | <a href="tel:+37360000000">+373 60 000 000</a></p>
+    </footer>
+
+    <!-- Лайтбокс с кнопками -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-btn prev" id="lightboxPrev" aria-label="Imaginea anterioară">&#10094;</button>
+        <img src="" alt="Foto mărită">
+        <button class="lightbox-btn next" id="lightboxNext" aria-label="Imaginea următoare">&#10095;</button>
+    </div>
+
+    <script>
+        // Слайдер
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        let current = 0;
+        function showSlide(n) { slides.forEach(s => s.classList.remove('active')); dots.forEach(d => d.classList.remove('active')); slides[n].classList.add('active'); dots[n].classList.add('active'); }
+        setInterval(() => { current = (current + 1) % slides.length; showSlide(current); }, 5000);
+        dots.forEach((dot, i) => dot.addEventListener('click', () => { current = i; showSlide(current); }));
+
+        // Мобильное меню
+        const burger = document.getElementById('burger');
+        const navLinks = document.getElementById('navLinks');
+        burger.addEventListener('click', () => { burger.classList.toggle('active'); navLinks.classList.toggle('active'); });
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { burger.classList.remove('active'); navLinks.classList.remove('active'); }));
+
+        // Анимации
+        const observer = new IntersectionObserver((entries) => entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }), { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Форма
+        document.getElementById('contactForm').addEventListener('submit', function(e) { e.preventDefault(); alert('Mulțumim! Cererea a fost trimisă.'); this.reset(); });
+
+        // ===== ЛАЙТБОКС С НАВИГАЦИЕЙ =====
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+        const images = galleryItems.map(item => item.getAttribute('data-full'));
+        let currentImageIndex = 0;
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            lightboxImg.src = images[currentImageIndex];
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            lightboxImg.src = '';
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            lightboxImg.src = images[currentImageIndex];
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            lightboxImg.src = images[currentImageIndex];
+        }
+
+        // Открытие по клику на галерею
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => openLightbox(index));
+        });
+
+        // Кнопки "Назад" и "Вперед"
+        document.getElementById('lightboxPrev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            prevImage();
+        });
+        document.getElementById('lightboxNext').addEventListener('click', (e) => {
+            e.stopPropagation();
+            nextImage();
+        });
+
+        // Закрытие по клику на фон (но не на фото)
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Закрытие по крестику/фото (не перекрываем кнопки)
+        lightboxImg.addEventListener('click', (e) => e.stopPropagation());
+
+        // Клавиатура (← , → , Escape)
+        document.addEventListener('keydown', function(e) {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
+        });
+
+        // Свайпы на телефоне
+        let touchStartX = 0;
+        let touchEndX = 0;
+        lightbox.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+        lightbox.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) nextImage();
+            if (touchEndX - touchStartX > 50) prevImage();
+        });
+    </script>
+</body>
+</html>
